@@ -37,7 +37,7 @@ func main() {
 
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
-	r.Get("/temperature", handlers.GetTemperature)
+	r.Get("/temperature/{cep}", handlers.GetTemperature)
 
 	go func() {
 		log.Println("Starting server on port", ":8080")

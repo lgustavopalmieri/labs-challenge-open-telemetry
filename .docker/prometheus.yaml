@@ -5,8 +5,8 @@ scrape_configs:
       - targets: ['otel-collector:8889']
       - targets: ['otel-collector:8888']
 
-  - job_name: 'goapp'
+  - job_name: 'service'
     scrape_interval: 10s
     static_configs:
-      - targets: ['goapp:8080']
+      - targets: ['service:8080']
 

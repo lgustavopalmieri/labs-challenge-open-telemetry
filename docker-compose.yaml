@@ -10,16 +10,16 @@ services:
     networks:
       - my-network
 
-  prometheus:
-    container_name: prometheus 
-    image: prom/prometheus:latest
-    restart: always
-    volumes:
-      - ./.docker/prometheus.yaml:/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
-    networks:
-      - my-network
+  # prometheus:
+  #   container_name: prometheus 
+  #   image: prom/prometheus:latest
+  #   restart: always
+  #   volumes:
+  #     - ./.docker/prometheus.yaml:/etc/prometheus/prometheus.yml
+  #   ports:
+  #     - "9090:9090"
+  #   networks:
+  #     - my-network
   
   otel-collector:
     image: otel/opentelemetry-collector:latest
@@ -34,16 +34,16 @@ services:
     networks:
       - my-network
 
-  grafana:
-    container_name: grafana
-    image: grafana/grafana:latest
-    restart: always
-    ports:
-      - "3001:3000"
-    depends_on:
-      - prometheus
-    networks:
-      - my-network
+  # grafana:
+  #   container_name: grafana
+  #   image: grafana/grafana:latest
+  #   restart: always
+  #   ports:
+  #     - "3001:3000"
+  #   depends_on:
+  #     - prometheus
+  #   networks:
+  #     - my-network
 
   zipkin:
     image: openzipkin/zipkin:latest
@@ -61,7 +61,7 @@ services:
       - "8080:8080"
     depends_on:
       - jaeger
-      - prometheus
+      # - prometheus
       - otel-collector
       - zipkin
     networks:
@@ -75,7 +75,7 @@ services:
       - "8181:8181"
     depends_on:
       - jaeger
-      - prometheus
+      # - prometheus
       - otel-collector
       - zipkin
     networks:
