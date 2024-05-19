@@ -13,6 +13,7 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"github.com/lgustavopalmieri/labs-challenge-open-telemetry/serviceA/infra/handlers"
 	"github.com/lgustavopalmieri/labs-challenge-open-telemetry/serviceA/infra/opentel"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func main() {
@@ -38,6 +39,7 @@ func main() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Get("/temperature/{cep}", handlers.GetTemperature)
+	r.Get("/metrics", promhttpHandler())
 
 	go func() {
 		log.Println("Starting server on port", ":8080")
@@ -55,4 +57,10 @@ func main() {
 
 	_, shutdownCancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer shutdownCancel()
+}
+
+func promhttpHandler() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		promhttp.Handler().ServeHTTP(w, r)
+	}
 }

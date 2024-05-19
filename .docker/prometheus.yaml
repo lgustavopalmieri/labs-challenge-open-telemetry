@@ -10,3 +10,8 @@ scrape_configs:
     static_configs:
       - targets: ['service:8080']
 
+  - job_name: 'service2'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['service2:8181']
+
